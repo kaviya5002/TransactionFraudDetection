@@ -1,23 +1,16 @@
-a = 10
-class preprocessor1():
-    
-    def __init__(self):
-        self.a = 10
-    def subtract(self):
-        self.a -= 1
-    def add(self):
-        self.a += 1
-    def printt(self):
-        print(self.a)
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+data = pd.read_csv('../dataset/creditcard.csv')
+print(data.head())
+print(data.info())
+X = data.drop('Class', axis=1)
+y = data['Class']
+scaler = StandardScaler()
+X['Amount'] = scaler.fit_transform(X['Amount'].values.reshape(-1, 1))
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
 
-    @staticmethod
-    def add():
-        global a
-        a += 1
-    @staticmethod
-    def printt():
-        global a
-        print(a)
-    
         
     
